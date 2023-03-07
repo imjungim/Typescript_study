@@ -377,3 +377,102 @@ const toyCar: Toy & Car2 = {
   color: "blue",
   price: 1000,
 }
+
+// ----------------------------------
+//📝6. Class 클래스!
+//TS에서는 접근제한자 지원!(Access modifier) - public, private(#), protected
+//public 자식클래스, 클래스 인스턴트에서 접근 가능 (아무것도 표기하지 않고 작성 하면 기본 public)
+// class Car6 {
+//   //color: string; //color멤변수를 미리 선언
+//   constructor(readonly color:string) {
+//     this.color = color;
+//   }
+//   start() {
+//     console.log('start')
+//   }
+// }
+
+//✨
+//public - 자식클래스, 클래스 인스턴스 모두 접근 가능
+//protected - 자식클래스 내부에서 접근 가능, 클래스 인스턴스로는 불가
+//private - 해당 클래스 내부에서만 접근 가능
+
+// class Car6 {
+//   readonly name: string = 'car';
+//   color: string; //color변수를 미리 선언
+//   constructor(color:string, name ) {
+//     this.color = color;
+//     this.name = name
+//   }
+//   start() {
+//     console.log('start')
+//     console.log(this.name)
+//   }
+// }
+
+// class Bmw3 extends Car6 {
+//   constructor(color: string, name) {
+//     super(color, name); //부모 상속!! super가 없으면 안됨. super를 호출하지 않으면 error
+//   }
+//   showName() {
+//     console.log(super.name);
+//     //name이 private - ❌
+//     //name이 protected, public - ⭕
+//   }
+// }
+
+// const z4 = new Bmw3('black','zzz');
+//console.log(z4.name) //name이 private -> error / public -> o
+//z4.name = 'zzz' //public -> 변경도 가능
+//name을 수정할 수 없게 하려면 readonly사용하고 name의 값을 변경하고 싶다면 constructor내에서 수정
+//public, protected 차이 ?
+
+// //static property - 정적멤버변수 생성
+// class Car6 {
+//   readonly name: string = 'car';
+//   color: string;
+//   static wheels = 4; //✨
+//   constructor(color:string) {
+//     this.color = color;
+//   }
+//   start() {
+//     console.log('start')
+//     console.log(this.name)
+//     console.log(Car6.wheels) //🐥this가 아닌 class명을 적어준다.
+//   }
+// }
+
+// class Bmw3 extends Car6 {
+//   constructor(color: string) {
+//     super(color);
+//   }
+//   showName() {
+//     console.log(super.name);
+//   }
+// }
+// const z4 = new Bmw3('black');
+// console.log(Car6.wheels) //🐥this가 아닌 class명을 적어준다. 4
+
+//추상class
+//-> 프로퍼티와 메소드의 이름만 선언하고, 구체적인 기능은 상속받는 쪽에서 구현해줌. 
+abstract class Car6 {
+  color: string; 
+  constructor(color:string) {
+    this.color = color;
+  }
+  start() {
+    console.log('start')
+  }
+  abstract doSomething():void //❗상속받는class에서 구체적으로 구현해줘야한다.
+}
+
+//const caar = new Car("red"); //추상클래스는 new를 통해서 객체를 만들 수 없다❌ 상속으로만 가능!
+
+class Bmw3 extends Car6 { //doSomething을 구현해주지 않으면 error
+  constructor(color: string) {
+    super(color); 
+  }
+  doSomething(){ //상속받는 doSomething을 구체적으로 구현
+    alert(3)
+  }
+}
