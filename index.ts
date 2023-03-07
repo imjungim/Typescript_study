@@ -304,3 +304,76 @@ const jane: string = join('jane', '30');
 //동일한 매개변수라도 타입을 다르게 사용가능
 //age매개변수의 타입이 number이거나 string -> 객체이거나 string
 
+//-----------------------------------
+//📝5. Literal Types
+
+const userName1 = "bob" //문자열 literal type 정해진 값을 가진 변수
+let userName2 = "Tom" // let은 값이 변경가능하기 때문에 type:string
+
+type Job = 'police' | 'developer' | 'teacher';
+
+interface User5 {
+  name: string,
+  job: Job;
+}
+
+const users: User5 = {
+  name: "Bob",
+  job: "police" //위에 Job에 선언된 값들만 사용 가능.
+
+}
+
+//숫자형 literal type
+interface HighSchoolStudent {
+  name: string;
+  grade: 1 | 2 | 3; //1,2,3만 사용가능 (|유니온타입)
+}
+
+//Union Types
+//동일한 속성의 type을 다르게 구분할 수 있는 것 -> 식별가능한 union
+interface Car {
+  name: "car",
+  color: string,
+  start(): void,
+}
+
+interface Mobile {
+  name: "mobile",
+  color: string,
+  call(): void;
+}
+
+function gift(gift: Car | Mobile) {
+  console.log(gift.color);
+   //gift.start(); //Error : Property 'start' does not exist on type 'Car | Mobile'.
+  if (gift.name === 'car') {
+    gift.start(); //(method) Car.start(): void
+  } else {
+    gift.call(); //(method) Mobile.call(): void
+  }
+ 
+}
+
+//Intersection Types
+//여러타입을 합쳐서 사용
+//and를 의미
+//필요한 기능을 모두 가진 하나의 타입을 만든다.
+
+interface Car2{
+  name: string;
+  start(): void;
+}
+
+interface Toy {
+  name: string,
+  color: string,
+  price: number,
+}
+//toy와 car의 모든 속성을 적어야한다.
+//하나라도 빠지면 error
+const toyCar: Toy & Car2 = {
+  name: "타요",
+  start() { },
+  color: "blue",
+  price: 1000,
+}
