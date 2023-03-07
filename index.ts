@@ -208,3 +208,99 @@ interface Toy {
 interface ToyCar extends Car,Toy {
     price: number;
 }
+
+//-------------------------------------------------
+//📝4. 함수
+function added(num1: number, num2: number): void {
+ // return num1 + num2;
+ console.log(num1 + num2)
+}
+//함수 매개변수에 옵셔널
+function  hello(name?:string) { //name은 있어도 없어도 상관
+  return `Hello, ${name || "world"}`;
+}
+
+function  helloo(name="world") { //매개변수의 디폴드값도 지정가능하다.
+  return `Hello, ${name}`;
+}
+
+const result = hello();
+const result2 = hello("Hong");;
+const result3 = hello(123); //❌
+
+//선택적 매개변수가 필수 매개변수 앞에 위치하면 오류
+function hi(name: string, age?: number): string {
+  if (age != undefined) {
+    return `Hello, ${name}. You are ${age}.`;
+  } else {
+    return `Hello, ${name}`;
+  }
+}
+console.log(hi("Hong"));
+console.log(hi("Hong", 30));
+
+//옵셔널값을 앞에 위치시키고 싶다면
+function hi2(age: number | undefined, name: string): string {
+  if (age != undefined) {
+    return `Hello, ${name}. You are ${age}.`;
+  } else {
+    return `Hello, ${name}`;
+  }
+}
+console.log(hi2(undefined, "Hong")); //명시적으로 undefined전달해서 사용
+console.log(hi2(30, "Hong"));
+
+//전달받은 파라미터를 배열로 한번에 전
+function add3(...nums: number[]) {
+  return nums.reduce((result, num) => result + num, 0);
+}
+
+add3(1, 2, 3); //6
+add3(1, 2, 3, 4, 5, 6, 7, 8, 9, 10) //55
+
+//this 관련
+interface User3 {
+  name: string,
+}
+
+const Kim: User3 = { name: 'Kim' }
+
+//this의 type지정
+// function showName(this:User3) { 
+//   console.log(this.name);
+// }
+
+//매개변수가 있을 경우
+function showName(this:User3, age:number, gender:'m' | 'f') { 
+  console.log(this.name, age, gender);
+}
+
+const aa = showName.bind('Kim');
+aa(30, 'm'); //this다음 1,2번째 순서대로 전달
+
+//오버로드
+interface User4 {
+  name: string,
+  age: number,
+}
+
+function join(name: string, age: string): string;
+function join(name: string, age: number):User4;
+function join(name: string, age: number | string): User4 | string {
+  if (typeof age === 'number') {
+    return {
+      name,
+      age,
+    };
+  } else {
+    return "나이는 숫자로 입력";
+  }
+}
+//User4 또는 string을 반환할수도 있기때문에 에러
+////오버로드 : 전달받은 매개변수의 갯수나 타입에 따라 다른동작을 하도록
+const ee: User4 = join("Hong", 30);
+const jane: string = join('jane', '30');
+
+//동일한 매개변수라도 타입을 다르게 사용가능
+//age매개변수의 타입이 number이거나 string -> 객체이거나 string
+
