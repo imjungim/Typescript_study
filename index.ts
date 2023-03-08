@@ -476,3 +476,94 @@ class Bmw3 extends Car6 { //doSomething을 구현해주지 않으면 error
     alert(3)
   }
 }
+
+//📝7. 제네릭 Generics <T> - t가 아닌 다른것이 와도 상관은 없음.
+//클래스나 함수, 인터페이스를 다양한 타입으로 재사용할 수 있다.
+//선언할때는 타입파라미터만 적고 생성하는 시점에 타입을 결정
+
+//타입파라미터 - T를 일반적으로 사용한다. 타입을 전달받아 함수에서 사용할 수 있도
+function getSize<T>(arr: T[]):number {
+  return arr.length
+}
+
+//타입이 바뀌었는데 함수를 재사용하고 싶다면 함수의 오버로드 사용 또는 유니온타입사용
+//타입이 여러개일수로 늘어나는 단점...
+// function getSize(arr: number[] | string[] | boolean[]):number {
+//   return arr.length
+// }
+
+const arr1 = [1, 2, 3];
+//사용하는 쪽에서 타입을 결정
+//function getSize<number>(arr: number[]): number
+getSize<number>(arr1); //3
+
+const arr2 = ["1", "2", "3"];
+//function getSize<string>(arr: string[]): number
+getSize<string>(arr2);
+
+const arr3 = [true, false, false];
+//function getSize<boolean>(arr: boolean[]): number
+//getSize<boolean>(arr3);
+getSize(arr3)//제네릭을 전달해주지 않아도 타입스크립트는 전달되는 매개변수를 보고 파악.
+const arr4 = [{},{},{name:"Tim"}];
+//function getSize<object>(arr: object[]): number
+getSize<object>(arr4);
+
+// ------------cut---
+interface Mobile<T>{
+  name: string;
+  price: number;
+  option: T; //any 어떤타입이 올지 모르는 상황에서 제네릭사용
+}
+
+// const m1:Mobile<object> = {
+//   name:"s21",
+//   price:1000,
+//   option:{
+//     color:'red',
+//     coupon:false,
+//   }
+// }
+
+//또는
+const m1:Mobile<{color:string; coupon:boolean}> = {
+  name:"s21",
+  price:1000,
+  option:{
+    color:'red',
+    coupon:false,
+  }
+}
+const m2:Mobile<string> = {
+  name:"s23",
+  price:5000,
+  option:'good',
+}
+
+//---------
+interface User0 {
+  name:string;
+  age:number;
+}
+
+interface Car0 {
+  name:string;
+  color: string;
+}
+
+interface Book {
+  price:number;
+}
+
+const userss: User0 = {name:"a", age:10}
+const car:Car0 = {name:"bmw", color:"red"}
+const book:Book = {price: 3000}
+
+//T타입 ->name이 string인 객체
+function showNames<T extends {name:string}>(data:T):string {
+  return data.name
+}
+
+showNames(userss);
+showNames(car)
+//showName(book) name이없음
