@@ -567,3 +567,156 @@ function showNames<T extends {name:string}>(data:T):string {
 showNames(userss);
 showNames(car)
 //showName(book) name이없음
+
+
+//----------------------------------------------------------------
+//📝8. utility types
+//keyof
+//User의 키값을 유니온의 형태로 받을 수 있다.
+
+interface User00 {
+  id:number;
+  name:string;
+  age:number;
+  gender:"m" |"f";
+}
+
+type Userkey = keyof User00; // 똑같다 'id' | 'name' | 'age' | 'gender'
+
+const uk:Userkey = 'id' //Userkey의 값중 하나를 입력하면 오류 사라짐.
+
+//Partial<T>
+//property를 모두 옵셔널로 바꿔준다. -> 일부만 사용이 가능
+interface User01 {
+  id:number;
+  name:string;
+  age:number;
+  gender:"m" |"f";
+}
+
+//Partial된것과 같다.
+// interface User01 {
+//   id?:number;
+//   name?:string;
+//   age?:number;
+//   gender?:"m" |"f";
+// }
+
+let admin:Partial <User01> = {
+  id:1,
+  name: 'bob',
+  //Partial로 감싸지않고 age,gender가 없으면 error
+  //job:'' //존재하지 않는 프로퍼티를 사용하면 error
+}
+
+//Required<T>
+//모든 프로퍼티를 필수로 바꿔준다.
+interface User02 {
+  id:number;
+  name:string;
+  age?:number;
+}
+
+let admin02: Required<User02> = {
+  id:1,
+  name:"bob",
+  age:32,//age 필수프로퍼티
+}
+
+//Readonly<T>
+//읽기전용
+
+interface User03 {
+  id:number;
+  name:string;
+  age?:number;
+}
+
+let admin03: Readonly<User03> = {
+  id:1,
+  name:"bob",
+}
+
+//admin03.id = 4; //수정불가
+
+//Record<K,T> key, type
+
+// interface Score {
+//   "1" : "A" | "B" | "C" | "D";
+//   "2" : "A" | "B" | "C" | "D";
+//   "3" : "A" | "B" | "C" | "D";
+//   "4" : "A" | "B" | "C" | "D";
+// } //-> Record로 바꾸면
+
+// const score:Record<"1"|"2"|"3"|"4", "A"|"B"|"C"|"D">  = {
+//   1: "A",
+//   2: "C",
+//   3: "B",
+//   4: "D",
+  
+// }
+
+//학년과 성적을 type으로 분류
+type Grade = "1"|"2"|"3"|"4";
+type Score = "A"|"B"|"C"|"D"
+
+const score:Record<Grade, Score>  = {
+  1: "A",
+  2: "C",
+  3: "B",
+  4: "D",
+}
+
+interface User04 {
+  id:number;
+  name:string;
+  age:number;
+}
+
+function isValid(user:User04) {
+  const result: Record<keyof User04, boolean> = {
+    id: user.id >0,
+    name: user.name !== "",
+    age: user.age > 0,
+  }
+  return result;
+}
+
+//Pick<T, K> - 해당 key값만 가져와 사용가능
+interface User05 {
+  id:number;
+  name:string;
+  age:number;
+  gender:"m" |"f";
+
+}
+
+const admin04:Pick<User05, "id" | "name"> = {
+  id:0,
+  name:"bob",
+}
+
+//반대 Omit<T,K> - 특정 프로퍼티 생략해서 사용.
+interface User06 {
+  id:number;
+  name:string;
+  age:number;
+  gender:"m" |"f";
+
+}
+//age, gender 만 제외하고 사
+const admin05:Omit<User05, "age" | "gender"> = {
+  id:0,
+  name:"bob",
+}
+
+//Exclude<T1,T2> - T1에서 T2를 제외하고 사용 
+//Omit은 프로퍼티를 제거하고 Exclude는 타입으로 제외?
+
+type T1 = string | number;
+type T2 = Exclude <T1, number>; //string
+
+//NonNullabe<Type> - null,undefined을 제외한 타입으로
+
+type T3 = string | null | undefined | void;
+type T4 = NonNullable<T3>;//string, void만 남음
