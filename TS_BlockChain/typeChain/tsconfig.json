@@ -5,6 +5,8 @@
   "compilerOptions" : {    
     "outDir": "build", //자바스크립트 파일이 생성될 디렉토리 지정.
     "target": "es6", 
-    "lib":["ES6","DOM"], //타입스크립트에게 어떤 API를 사용하고 어떤 환경에서 코드를 실행하는 지를 지정
+    "lib":["ES6","DOM"], //타입스크립트에게 어떤 API를 사용하고 어떤 환경에서 코드를 실행하는지를 지정
+    "strict": true, //"strict": true를 통해 strict mode로 해주면, Declaration Files가 없는 경우에 대해서도 에러를 띄워준다.
+
   } 
 }
