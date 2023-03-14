@@ -7,6 +7,6 @@
     "target": "es6", 
     "lib":["ES6","DOM"], //타입스크립트에게 어떤 API를 사용하고 어떤 환경에서 코드를 실행하는지를 지정
     "strict": true, //"strict": true를 통해 strict mode로 해주면, Declaration Files가 없는 경우에 대해서도 에러를 띄워준다.
-
+    "allowJs": true, //타입스크립트 안에 자바스크립트를 허용.
   } 
 }
