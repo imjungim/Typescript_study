@@ -43,11 +43,35 @@
   }
   }
 
-
   //const maker = new CoffeeMaker(32) //Constructor of class 'CoffeeMaker' is private and only accessible within the class declaration.
   //maker.fillCoffeeBeans(30) //커피콩추가
   const maker = CoffeeMaker.makeMachine(32)
  //외부에서 값변경이 가능한 상태.
  //maker.coffeeBeans = 3; //Property 'coffeeBeans' is private and only accessible within class 'CoffeeMaker'.
  // maker.coffeeBeans = -44; invalid
+  
+
+
+  //✨Setter, Getter -> 멤버변수처럼 사용가능
+  class User {
+    firstName: string;
+    lastName: string;
+    //fullName: string;
+    //❗get 키워드 사용시 함수형태가 되지만 접근할때는 멤버변수에 접근하듯 사용
+    get fullName(): string { //fullName 호출시점에 결합
+      return `${this.firstName} ${this.lastName}`
+    }
+
+    constructor(firstName: string, lastName: string) {
+      this.firstName = firstName;
+      this.lastName = lastName;
+     // this.fullName = `${firstName} ${lastName}`;
+  
+    }
+  }
+
+  const user = new User('Steve', 'Jobs')
+  console.log(user.fullName) //Steve Jobs  ❗user.fullName 멤버변수에 접근하는것처럼 사용.
+  user.firstName = 'Ellie'
+  console.log(user.fullName) //Steve Jobs 한번 할당된 fullName은 변하지 않는다 -> get fullName() Ellie Jobs
 }
