@@ -54,24 +54,34 @@
 
   //✨Setter, Getter -> 멤버변수처럼 사용가능
   class User {
-    firstName: string;
-    lastName: string;
-    //fullName: string;
+
     //❗get 키워드 사용시 함수형태가 되지만 접근할때는 멤버변수에 접근하듯 사용
     get fullName(): string { //fullName 호출시점에 결합
       return `${this.firstName} ${this.lastName}`
     }
+    private internalAge = 4;
+    get age(): number {
+      return this.internalAge; //4
+    }
 
-    constructor(firstName: string, lastName: string) {
-      this.firstName = firstName;
-      this.lastName = lastName;
-     // this.fullName = `${firstName} ${lastName}`;
-  
+    set age(num:number) {
+      if (num < 0) {
+        console.log('0보다 큰 수 입력')
+      }
+      this.internalAge = num; //멤버변수 업데이
+    }
+
+    constructor(private firstName: string, private lastName: string) {
+      //멤버변수로 설정 
+      //firstName -> this.firstName , lastName -> this.lastName 설
     }
   }
 
   const user = new User('Steve', 'Jobs')
-  console.log(user.fullName) //Steve Jobs  ❗user.fullName 멤버변수에 접근하는것처럼 사용.
-  user.firstName = 'Ellie'
-  console.log(user.fullName) //Steve Jobs 한번 할당된 fullName은 변하지 않는다 -> get fullName() Ellie Jobs
+
+  user.age = 6 
+  console.log(user) //User { firstName: 'Steve', lastName: 'Jobs', internalAge: 6 }
+  // console.log(user.fullName) //Steve Jobs  ❗user.fullName 멤버변수에 접근하는것처럼 사용.
+  // user.firstName = 'Ellie'
+  // console.log(user.fullName) //Steve Jobs 한번 할당된 fullName은 변하지 않는다 -> get fullName() Ellie Jobs
 }
