@@ -97,6 +97,34 @@
       }
     }
   }
+
+  class FancyMilkSteamer implements MilkFrother{
+    private steamMilk(): void {
+      console.log('Fancy Steaming some milk...')
+    }
+
+    makeMilk(cup: CoffeeCup):CoffeeCup {
+      this.steamMilk();
+      return {
+        ...cup,
+        hasMilk: true,
+      }
+    }
+  }
+
+  class ColdMilkSteamer implements MilkFrother{
+    private steamMilk(): void {
+      console.log('Cold Steaming some milk...')
+    }
+
+    makeMilk(cup: CoffeeCup):CoffeeCup {
+      this.steamMilk();
+      return {
+        ...cup,
+        hasMilk: true,
+      }
+    }
+  }
   
   //설탕 제조기
   class CandySugarMixer implements SugarProvider{
@@ -114,6 +142,22 @@
     }
   }
 
+  class SugarMixer implements SugarProvider{
+    private getSugar() {
+      console.log('Getting some sugar from jar!?🪣')
+      return true;
+    }
+
+    addSugar(cup: CoffeeCup): CoffeeCup {
+      const sugar = this.getSugar();
+      return {
+        ...cup,
+        hasSugar: sugar,
+      }
+    }
+  }
+
+  // -------------------
   class CafeLatteMachine extends CoffeeMachine {
     constructor(beans: number,
       public readonly serialNumber: string,
@@ -153,10 +197,23 @@
   //class SweetCafeLatteMachine extends SweetCoffeeMaker, CafeLatteMachine {} //Classes can only extend a single class.
 
   //재사용성 🔻down
+
+  //Milk
   const cheapMilkMaker = new CheapMilkSteamer();
+  const FancyMilkMaker = new FancyMilkSteamer();
+  const ColdMilkMaker = new ColdMilkSteamer();
+
+  //Sugar
   const candySugar = new CandySugarMixer();
-  const sweetMachine = new SweetCoffeeMaker(12, candySugar);
+  const sugar = new SugarMixer();
+  
+  //
+  //원하는 용도,기능에 따라 SweetCoffeeMaker를 다르게 사용할 수 있다.
+  const sweetCandyMachine = new SweetCoffeeMaker(12, candySugar)
+  const sweetMachine = new SweetCoffeeMaker(12, sugar);
+
   const latteMachine = new CafeLatteMachine(12, 'ss', cheapMilkMaker);
+  const coldLatteMachine = new CafeLatteMachine(12, 'ss', ColdMilkMaker);
   const sweetLatteMachine = new SweetCafeLatteMachine(12, cheapMilkMaker, candySugar);
 
 
