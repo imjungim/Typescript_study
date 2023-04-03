@@ -8,6 +8,9 @@
    * -> 구성요소, 구성
    * -> 필요한것을 조립해나가는 것.
    * -> 기능별(우유스팀_CheapMilkSteamer, 설탕_AutomaticSugarMixer)로 class를 만들어 필요한 곳에서 가져다 사용하는 composition 구성.
+   * -> 필요한 기능만 가져다 사용할 수 있기에 코드의 재사용성 🆙
+   * ❌CafeLatteMachine, SweetCoffeeMaker, SweetCafeLatteMachine -> 모두 우유스팀_CheapMilkSteamer, AutomaticSugarMixer를 사용하기 때문에 나중에 다른 설탕제조기를 만들었을 경우 모든 클래스에 업데이트 해야 하며,
+   * 항상 우유스팀_CheapMilkSteamer만 사용하는 class로 제약이 되는 단점.
    */
 
   type CoffeeCup = {
@@ -73,19 +76,8 @@
     }
   }
 
-  class CafeLatteMachine extends CoffeeMachine {
-    constructor(beans: number,
-      public readonly serialNumber: string,
-      private milkFrother: CheapMilkSteamer
-    ){ //steamMilk()는 이제 필요없고 외부로부터 필요한 요소(milkFrother)를 받아옴.
-      super(beans) 
-    }
+  
 
-    makeCoffee(shots: number): CoffeeCup{
-      const coffee = super.makeCoffee(shots);
-      return this.milkFrother.makeMilk(coffee)
-    } 
-  }
   //모자란 우유 거품기
   class CheapMilkSteamer {
     private steamMilk(): void {
@@ -117,6 +109,19 @@
     }
   }
 
+  class CafeLatteMachine extends CoffeeMachine {
+    constructor(beans: number,
+      public readonly serialNumber: string,
+      private milkFrother: CheapMilkSteamer
+    ){ //steamMilk()는 이제 필요없고 외부로부터 필요한 요소(milkFrother)를 받아옴.
+      super(beans) 
+    }
+
+    makeCoffee(shots: number): CoffeeCup{
+      const coffee = super.makeCoffee(shots);
+      return this.milkFrother.makeMilk(coffee)
+    } 
+  }
   class SweetCoffeeMaker extends CoffeeMachine {
     constructor(private beans:number, private sugar: AutomaticSugarMixer) {
       super(beans); 
@@ -128,6 +133,17 @@
     }
   }
 
+  class SweetCafeLatteMachine extends CoffeeMachine {
+    constructor(private beans: number, private milk: CheapMilkSteamer, private sugar: AutomaticSugarMixer) {
+      super(beans);
+    }
+    makeCoffee(shots: number):CoffeeCup {
+      const coffee = super.makeCoffee(shots);
+      const sugarAdded = this.sugar.addSugar(coffee);
+     // return this.milk.makeMilk(this.sugar.addSugar(coffee)) //또는
+      return this.milk.makeMilk(sugarAdded)
+    }
+  }
 
   //class SweetCafeLatteMachine extends SweetCoffeeMaker, CafeLatteMachine {} //Classes can only extend a single class.
   
