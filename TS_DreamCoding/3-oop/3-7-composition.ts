@@ -7,6 +7,7 @@
    * ✨Composition 사용
    * -> 구성요소, 구성
    * -> 필요한것을 조립해나가는 것.
+   * -> 기능별(우유스팀_CheapMilkSteamer, 설탕_AutomaticSugarMixer)로 class를 만들어 필요한 곳에서 가져다 사용하는 composition 구성.
    */
 
   type CoffeeCup = {
@@ -117,19 +118,16 @@
   }
 
   class SweetCoffeeMaker extends CoffeeMachine {
-    getSugar() {
-      console.log('Getting some sugar🍭')
+    constructor(private beans:number, private sugar: AutomaticSugarMixer) {
+      super(beans); 
     }
     //오버라이딩
     makeCoffee(shots: number): CoffeeCup{
       const coffee = super.makeCoffee(shots);
-      this.getSugar();
-      return {
-        ...coffee,
-        hasSugar: true,
-      }
+      return this.sugar.addSugar(coffee);
     }
   }
+
 
   //class SweetCafeLatteMachine extends SweetCoffeeMaker, CafeLatteMachine {} //Classes can only extend a single class.
   
