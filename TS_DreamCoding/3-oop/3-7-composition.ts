@@ -73,22 +73,16 @@
   }
 
   class CafeLatteMachine extends CoffeeMachine {
-    constructor(beans: number, public readonly serialNumber: string) {
+    constructor(beans: number,
+      public readonly serialNumber: string,
+      private milkFrother: CheapMilkSteamer
+    ){ //steamMilk()는 이제 필요없고 외부로부터 필요한 요소(milkFrother)를 받아옴.
       super(beans) 
     }
 
-    private steamMilk(): void{
-      console.log('Steaming some milk...🥛')
-    }
-
     makeCoffee(shots: number): CoffeeCup{
-
       const coffee = super.makeCoffee(shots);
-      this.steamMilk();
-      return {
-        ...coffee,
-        hasMilk: true,
-      }
+      return this.milkFrother.makeMilk(coffee)
     } 
   }
   //모자란 우유 거품기
