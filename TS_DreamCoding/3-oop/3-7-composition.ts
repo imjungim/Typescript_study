@@ -7,9 +7,9 @@
    * ✨Composition 사용
    * -> 구성요소, 구성
    * -> 필요한것을 조립해나가는 것.
-   * -> 기능별(우유스팀_CheapMilkSteamer, 설탕_AutomaticSugarMixer)로 class를 만들어 필요한 곳에서 가져다 사용하는 composition 구성.
+   * -> 기능별(우유스팀_CheapMilkSteamer, 설탕_CandySugarMixer)로 class를 만들어 필요한 곳에서 가져다 사용하는 composition 구성.
    * -> 필요한 기능만 가져다 사용할 수 있기에 코드의 재사용성 🆙
-   * ❌CafeLatteMachine, SweetCoffeeMaker, SweetCafeLatteMachine -> 모두 우유스팀_CheapMilkSteamer, AutomaticSugarMixer를 사용하기 때문에 나중에 다른 설탕제조기를 만들었을 경우 모든 클래스에 업데이트 해야 하며,
+   * ❌CafeLatteMachine, SweetCoffeeMaker, SweetCafeLatteMachine -> 모두 우유스팀_CheapMilkSteamer, CandySugarMixer를 사용하기 때문에 나중에 다른 설탕제조기를 만들었을 경우 모든 클래스에 업데이트 해야 하며,
    * 항상 우유스팀_CheapMilkSteamer만 사용하는 class로 제약이 되는 단점.
    */
 
@@ -76,10 +76,15 @@
     }
   }
 
-  
+  interface MilkFrother {
+    makeMilk(cup: CoffeeCup): CoffeeCup;
+  }
 
+  interface SugarProvider {
+    addSugar(cup: CoffeeCup): CoffeeCup;
+  }
   //모자란 우유 거품기
-  class CheapMilkSteamer {
+  class CheapMilkSteamer implements MilkFrother{
     private steamMilk(): void {
       console.log('Steaming some milk...')
     }
@@ -94,7 +99,7 @@
   }
   
   //설탕 제조기
-  class AutomaticSugarMixer {
+  class CandySugarMixer implements SugarProvider{
     private getSugar() {
       console.log('Getting some sugar from jar!')
       return true;
@@ -112,7 +117,7 @@
   class CafeLatteMachine extends CoffeeMachine {
     constructor(beans: number,
       public readonly serialNumber: string,
-      private milkFrother: CheapMilkSteamer
+      private milkFrother: MilkFrother
     ){ //steamMilk()는 이제 필요없고 외부로부터 필요한 요소(milkFrother)를 받아옴.
       super(beans) 
     }
@@ -123,7 +128,7 @@
     } 
   }
   class SweetCoffeeMaker extends CoffeeMachine {
-    constructor(private beans:number, private sugar: AutomaticSugarMixer) {
+    constructor(private beans:number, private sugar: SugarProvider) { //받아오던 class대신 SugarProvider interface로
       super(beans); 
     }
     //오버라이딩
@@ -134,7 +139,7 @@
   }
 
   class SweetCafeLatteMachine extends CoffeeMachine {
-    constructor(private beans: number, private milk: CheapMilkSteamer, private sugar: AutomaticSugarMixer) {
+    constructor(private beans: number, private milk: MilkFrother, private sugar: SugarProvider) {
       super(beans);
     }
     makeCoffee(shots: number):CoffeeCup {
@@ -146,25 +151,14 @@
   }
 
   //class SweetCafeLatteMachine extends SweetCoffeeMaker, CafeLatteMachine {} //Classes can only extend a single class.
-  
-  const sweet = new SweetCoffeeMaker(16)
-  console.log(sweet.makeCoffee(2))
-  // const machines = [
-  //   new CoffeeMachine(16),
-  //   new CafeLatteMachine(16, '1'),
-  //   new SweetCoffeeMaker(16),
-  //   new CoffeeMachine(16),
-  //   new CafeLatteMachine(16, '1'),
-  //   new SweetCoffeeMaker(16),
-  
-  // ]
-  // machines.forEach(machine => {
-  //   console.log('------------------------------');
-  //   machine.makeCoffee(1);
-    
-  // })
-  //공통된 api를 호출가능
-  //부모의 클래스를 상속한 자식클래스가 부모클래스의 함수를 다른방식으로 다양하게 구성하여 다형성을 구현
+
+  //재사용성 🔻down
+  const cheapMilkMaker = new CheapMilkSteamer();
+  const candySugar = new CandySugarMixer();
+  const sweetMachine = new SweetCoffeeMaker(12, candySugar);
+  const latteMachine = new CafeLatteMachine(12, 'ss', cheapMilkMaker);
+  const sweetLatteMachine = new SweetCafeLatteMachine(12, cheapMilkMaker, candySugar);
+
 
 }
 
