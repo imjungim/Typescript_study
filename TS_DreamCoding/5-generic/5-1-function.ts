@@ -7,7 +7,18 @@
     return arg;
   }
 
+  //🙏any로 바꿔줘도 타입이 보장되지 않는다.
+  function checkNotNullAnyBad(arg: any | null): any {
+  //null이 아니면 숫자를 리턴
+  if (arg == null) {
+    throw new Error('not valid number!');
+  }
+  return arg;
+  }
 
+  const result = checkNotNullAnyBad(123); //숫자가 null이 아니면 any리턴 -> 타입에 대한 정보가 無
+  console.log(result)
+  checkNotNullAnyBad(null) //Error
 }
 
 //타입을 알 수 없는 자바스크립트 라이브러리에서 요소가 리턴될 때 null이 리턴될 수도 있음.
