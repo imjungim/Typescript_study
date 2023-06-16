@@ -21,26 +21,25 @@
         return new CoffeeMaker(coffeeBeans)
     }
     
-  //외부에서 함수를 이용해서 내부의 상태를 변경할 수 있도록 함.
+    //외부에서 함수를 이용해서 내부의 상태를 변경할 수 있도록 함.
     fillCoffeeBeans(beans: number) {
-    //커피추가
+      //커피추가
       if (beans < 0) {
         throw new Error('value for beans should be greater than 0');
       }
-      this.coffeeBeans += beans
-  }
-
-
-   makeCoffee(shots: number): CoffeeCup {
-    if (this.coffeeBeans < shots * CoffeeMaker.BEANS_GRAMM_PER_SHOT) {
-      throw new Error('Not enough coffee beans!')
+        this.coffeeBeans += beans
     }
-    this.coffeeBeans -= shots * CoffeeMaker.BEANS_GRAMM_PER_SHOT;
-    return {
-      shots,
-      hasMilk: false,
+
+    makeCoffee(shots: number): CoffeeCup {
+      if (this.coffeeBeans < shots * CoffeeMaker.BEANS_GRAMM_PER_SHOT) {
+        throw new Error('Not enough coffee beans!')
+      }
+      this.coffeeBeans -= shots * CoffeeMaker.BEANS_GRAMM_PER_SHOT;
+      return {
+        shots,
+        hasMilk: false,
+      }
     }
-  }
   }
 
   //const maker = new CoffeeMaker(32) //Constructor of class 'CoffeeMaker' is private and only accessible within the class declaration.
@@ -56,6 +55,7 @@
   class User {
 
     //❗get 키워드 사용시 함수형태가 되지만 접근할때는 멤버변수에 접근하듯 사용
+    //새로운 데이터를 만들고 사용가
     get fullName(): string { //fullName 호출시점에 결합
       return `${this.firstName} ${this.lastName}`
     }

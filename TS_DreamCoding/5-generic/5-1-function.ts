@@ -28,7 +28,7 @@
   }
   const number = checkNotNull(123); //function checkNotNull(arg: number | null): number number type으로 결정
   const boal: boolean = checkNotNull(true); //function checkNotNull<true>(arg: true | null): true , 구체적으로 타입 지정도 가능
-  const boal2: string = checkNotNull(true) //Type 'boolean' is not assignable to type 'string'.
+  //const bool2: string = checkNotNull(true) //Type 'boolean' is not assignable to type 'string'.
 }
 
 //타입을 알 수 없는 자바스크립트 라이브러리에서 요소가 리턴될 때 null이 리턴될 수도 있음.

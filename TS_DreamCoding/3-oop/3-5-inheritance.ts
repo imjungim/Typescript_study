@@ -11,7 +11,6 @@
   class CoffeeMachine implements CoffeeMaker  {
     private static BEANS_GRAMM_PER_SHOT: number = 7 
     private coffeeBeans: number = 0; 
-
     //자식 클래스에서 상속이 가능하도록 private -> protected로 변경
     constructor(coffeeBeans: number) { 
     this.coffeeBeans = coffeeBeans

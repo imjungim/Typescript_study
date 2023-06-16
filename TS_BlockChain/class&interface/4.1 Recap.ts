@@ -15,7 +15,7 @@ class Dict {
   }
   add(word: Word) { //Word class를 type 사용
     if (this.words[word.term] === undefined) { //주어진 단어가 아직 사전에 존재하지 않음
-      this.words[word.term] === word.def
+      this.words[word.term] = word.def
     }
   }
   def(term: string) {
@@ -31,7 +31,7 @@ class Word {
 }
 
 const kimchi = new Word("kimchi", "한국 음식");
-
+const pizza = new Word("pizza", "이탈리아 음식" )
 const dict = new Dict()
 dict.add(kimchi);
-dict.def("kimchi")
+dict.def("kimchi");

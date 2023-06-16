@@ -1,9 +1,10 @@
-//class Player {
-  constructor(
-    private firstName: string,
-    private lastName: string,
-    public nickName:string,
-  ) {}
+{
+  //class Player {
+  // constructor(
+  //   private firstName: string,
+  //   private lastName: string,
+  //   public nickName:string,
+  // ) {} 
 //}
 
 // const nico = new Player("nico", "last", "니꼬");
@@ -42,7 +43,7 @@
 //   //추상클래스 안 메소드 생성
 //   //❗메소드를 클래스 안에서 구현
 
-//   abstract getNickName():void //call signature만 가지고 있음.
+//   abstract getNickName():void //추상 메소드 call signature만 가지고 있음.
 
 //   private getFullName() {
 //     return `${this.firstName} ${this.lastName}`
@@ -51,6 +52,7 @@
 
 // class Player extends User2 {
 //   //getNickName을구현
+//   //추상메소드가 있는 경우, 추상클래스를 상속받는 클래스에서 추상메소드를 구현.
 //   getNickName() {
 //       //console.log(this.nickName) private속성이기때문에 안됨.
 //       //❗property를 private으로 만들었다면 그 클래스를 상속했을지라도 그 프로퍼티에 접근 불가.
@@ -100,3 +102,4 @@ nico.getFullName()
 // private 　 　　　⭕　　　　　　　❌　　　　　❌
 // protected 　　　⭕　　　　　　　⭕　　　　　❌
 // public　　　　　⭕　　　　　　　⭕　　　　　⭕
+}

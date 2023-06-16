@@ -76,14 +76,14 @@
   }
 
   const maker:CoffeeMachine = CoffeeMachine.makeMachine(32)
-  maker.fillCoffeeBeans(32)
-  maker.makeCoffee(2)
-  //maker. //maker.extract, makeCoffee, preheat, grindBeans, fillCoffeeBeans 커피를 만들기 위해 호출할 수 있는 함수가 多 -> 추상화를 통해 인터페이스를 간편하게
-  //추상화?
-  //1. 접근제어자를 통해서 (encapsulation)
-  //    - makeCoffee,fillCoffeeBeans 두가지 함수만 사용가능 
-  maker.makeCoffee(2)
-  maker.fillCoffeeBeans(20)
+  // maker.fillCoffeeBeans(32)
+  // maker.makeCoffee(2)
+  // //maker. //maker.extract, makeCoffee, preheat, grindBeans, fillCoffeeBeans 커피를 만들기 위해 호출할 수 있는 함수가 多 -> 추상화를 통해 인터페이스를 간편하게
+  // //추상화?
+  // //1. 접근제어자를 통해서 (encapsulation)
+  // //    - makeCoffee,fillCoffeeBeans 두가지 함수만 사용가능 
+  // maker.makeCoffee(2)
+  // maker.fillCoffeeBeans(20)
   
   //2. interface 사용
   //interface에서 정의된 것만 사용이 가능하다.
@@ -117,8 +117,8 @@
   }
 
   const maker3:CoffeeMachine = CoffeeMachine.makeMachine(32)
-  const amateur = new AmateurUser(maker) //CoffeeMaker
-  const pro = new ProBarista(maker) //CommercialCoffeeMaker
+  const amateur = new AmateurUser(maker3) //CoffeeMaker
+  const pro = new ProBarista(maker3) //CommercialCoffeeMaker
 
   amateur.makeCoffee();
   // const maker2:CommercialCoffeeMaker = CoffeeMachine.makeMachine(32)

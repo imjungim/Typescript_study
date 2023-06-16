@@ -1,6 +1,6 @@
 {
-  interface Stack<T> {
-  readonly size: number; //몇개의 문자열이 있는지 파악.
+interface Stack<T> {
+  readonly size: number;
   push(value: T): void;
   pop(): T;
 }
