@@ -1,7 +1,7 @@
 {
 /**
    * JavaScript
-   * Primitive: number, string, boolean, bigint, symbol, null, undefined
+   * Primitive: number, string, boolean, bigint, symbol, null, undefined (7)
    * Object: function, array.....
    */
 
@@ -14,8 +14,8 @@
   // boolean
   const boal: boolean = false;
 
-  // undefined
-  let name: undefined; // 💩
+  // undefined 값이 있는지 없는지 결정되지 않는 상태
+  let name: undefined; // 💩단독으로 사용하지 않음
   let age: number | undefined;
   age = undefined;
   age = 1;
@@ -23,7 +23,7 @@
     return undefined;
   }
 
-  // null
+  // null 비어있는 상태
   let person: null; // 💩
   let person2: string | null;
 
@@ -55,7 +55,7 @@
   let neverEnding: never; //💩❌
 
   //object : 원시타입 제외 모든 object타입을 전달 가능 배열도 가능.
-  let obj: object = [1,2,3,4]; //💩 조금 더 명확히 명시하여 사용.
+  let obj: object = [1,2,3,4]; //💩 조금 더 명확히 명시하여 사용.(어떤 object타입인지 세부적으로 명시해서 사용할것.)
   function acceptSomeObject(obj: object) {
   }
   acceptSomeObject({ name: 'hong' })

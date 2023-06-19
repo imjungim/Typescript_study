@@ -1,5 +1,5 @@
 {
-  //Discriminated Union🚀
+  //Discriminated Union🚀차별화 하는, 구분 할 수 있는
   //FUNCTION : login -> success, fail
   //✨동일한 키 state별로 다른 값을 가지도록 -> result 키에 각각 다른 값을 가지고 있다.
   type SuccessState = {
@@ -29,7 +29,7 @@
   //fail => reason
 
   function printLoginState(state: LoginState) {
-    state.result //"success" | "fail"
+    state.result //"success" | "fail" 접근가능
     if (state.result === 'success') {
       //state 안에 response가 있다면
       console.log(`🎇${state.response.body}`) //성공

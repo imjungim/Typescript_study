@@ -2,9 +2,9 @@
   //Array
   const fruits: string[] = ['🍓', '🍌']
   //또는
-  const scores: Array<number> = [1, 2, 3]
+  const scores: Array<number> = [1, 2, 3] //제네릭 챕터에서 자세히..
   //차이가 있다면
-  //object의 불변성을 유지하기 위해 readonly 사용시
+  //object의 불변성을 유지하기 위해 readonly 사용시 데이터 읽기만 가능.
   function printArray(fruits: readonly string[]) {
     //fruits.push -> error readonly
   }

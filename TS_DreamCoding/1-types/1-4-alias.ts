@@ -24,9 +24,9 @@
  */
   type Name = 'name';
   let ellieName: Name;
-  ellieName = 'name';
+  ellieName = 'name'; //name 외 다른 문자열 할당은 불가 error
   type JSON = 'json'
-  const json: JSON = 'json';
+  const json: JSON = 'json'
 
   type Boal = true;
   const isCat: Boal = true;

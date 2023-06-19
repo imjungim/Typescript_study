@@ -7,7 +7,7 @@
     console.log(direction);
   }
 
-  move('down') //4 type이 자동
+  move('down') //4가지 type이 자동으로
 
   type TileSize = 8 | 16 | 32;
   const tile: TileSize = 16; //정의된 type중 하나만 사용 가능

@@ -1,6 +1,7 @@
 {
   /**
-   * Intersection Types: &
+   * Intersection Types: & 모든것을 다 합한 and와 같은
+   * 다양한 타입을 묶어서 하나
    */
 
   type Student = {

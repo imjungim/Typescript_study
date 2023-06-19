@@ -4,12 +4,13 @@
    */
 
   function jsStrFunc(): any {
-   // return 'hello';
+   // return 'hello'; // 내부적으로 문자열을 리턴
     return 2;
   }
   const result = jsStrFunc(); //result any
-  console.log((result as string).length)
-  console.log((<string>result).length) //위와 동일
+  //변수의 타입을 정말정말 확신할때만 사용!!
+  console.log((result as string).length) //변수를 문자열로 사용하겠다. 5
+  console.log((<string>result).length) //위와 동일 
 
   const wrong: any = 5; 
   console.log((wrong as Array<number>).push(1)); //TypeError: wrong.push is not a function
