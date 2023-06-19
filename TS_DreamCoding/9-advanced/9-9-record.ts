@@ -2,7 +2,7 @@ type PageInfo = {
   title: string;
 };
 type Page = 'home' | 'about' | 'contact';
-
+//두가지 타입을 묶어준다. 
 const nav: Record<Page, PageInfo> = {
   home: { title: 'Home' },
   about: { title: 'About' },
@@ -10,4 +10,4 @@ const nav: Record<Page, PageInfo> = {
 };
 
 type Product = 'cat' | 'dog';
-type NewProduct = Capitalize<Product>; // 'Cat' | 'Dog'
+type NewProduct = Capitalize<Product>; // 'Cat' | 'Dog' 대문자로 전환 사용 

@@ -5,7 +5,7 @@
     author: string;
   };
   // [1, 2].map(item => item * item); // [1, 4]
-  // T 타입에 있는 모든 key들을 p에 순서대로 할
+  // T 타입(전달되는 object)에 있는 모든 key들을 p에 순서대로 할
   type Optional<T> = {
     [P in keyof T]?: T[P]; // for...in
   };

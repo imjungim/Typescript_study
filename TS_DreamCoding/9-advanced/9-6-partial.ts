@@ -5,7 +5,7 @@
     label: string;
     priority: 'high' | 'low';
   };
-
+  //Partial - 기존의 타입에서 부분적인것만 허용하고 싶을 때 사용
   function updateTodo(todo: ToDo, fieldsToUpdate: Partial<ToDo>): ToDo {
     return { ...todo, ...fieldsToUpdate };
   }
@@ -16,5 +16,5 @@
     priority: 'high',
   };
   const updated = updateTodo(todo, { priority: 'low' });
-  console.log(updated);
+  console.log(updated); //priority property만 부분적으로 변경!
 }

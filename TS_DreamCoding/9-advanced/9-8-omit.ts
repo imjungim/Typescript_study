@@ -5,7 +5,7 @@
     url: string;
     data: string;
   };
-
+  //Pick과 반대로 원하는것을 제외한 나머지를 사용.
   type VideoMetadata = Omit<Video, 'url' | 'data'>;
 
   function getVideo(id: string): Video {

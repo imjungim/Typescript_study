@@ -16,7 +16,7 @@
   const obj2: PositionInterface = {
     x: 1,
     y: 1,
-    z: 1,
+    z: 1, //추가 가능
   };
 
   // class ★
